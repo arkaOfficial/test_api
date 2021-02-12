@@ -1,9 +1,8 @@
 import falcon
 
-from .images import Resource
-
+from look.images import Resource, CasbinAuth
 
 api = application = falcon.API()
 
-images = Resource()
-api.add_route('/images', images)
+api.add_route('/images', Resource())
+api.add_route('/auth', CasbinAuth())
