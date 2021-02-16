@@ -31,8 +31,9 @@ class CasbinAuth(object):
 
     def on_get(self, request, response):
         try:
-            request.headers.get('AUTHORIZATION')
-            encoded_token = request.headers.get('AUTHORIZATION').split(' ')[-1]
+            jwt = request.headers.get('AUTHORIZATION')
+            info(jwt)
+            encoded_token = jwt.split(' ')[-1]
             request.context['bearer'] = encoded_token
             token_body = base64.b64decode(encoded_token.split('.')[1] + B64_PADDING)
             body = json.loads(token_body)
