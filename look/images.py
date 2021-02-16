@@ -41,12 +41,14 @@ class CasbinAuth(object):
             response.status = falcon.HTTP_401
             return
 
-        # load policy from commons s3 and store it in cache
-        #adapter = Adapter(dbname='casbin_test', host='mongos0.moengage.com')
-        #casbin_sqlalchemy_adapter.Adapter()
+        """
+        EXAMPLE of key and values in a json file in the db casbin_policies with collection name casbin_rule
+        ptype, v0, v1, v2 ...(upto v5)
+        p, Admin, LoginSettings, Write
+        """
 
         adapter = Adapter('mongos0.moengage.com', "casbin_policies")
-        e = casbin.Enforcer("conf/casbin_model.conf", "conf/casbin_policy.csv")
+        e = casbin.Enforcer("conf/casbin_model.conf", adapter)
         #e = casbin.Enforcer("conf/casbin_model.conf", adapter, True)
         sub =  body["role"] # the user that wants to access a resource.
         obj = "LoginSettings"  # the resource that is going to be accessed.
