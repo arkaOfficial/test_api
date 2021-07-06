@@ -48,7 +48,7 @@ class CasbinAuth(object):
         p, Admin, LoginSettings, Write
         """
 
-        adapter = Adapter('mongos0.moengage.com', "casbin_policies")
+        adapter = Adapter('yourmongourl.com', "casbin_policies")
         e = casbin.Enforcer("conf/casbin_model.conf", adapter)
         #e = casbin.Enforcer("conf/casbin_model.conf", adapter, True)
         sub =  body["role"] # the user that wants to access a resource.
